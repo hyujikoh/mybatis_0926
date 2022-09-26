@@ -25,4 +25,8 @@ public class ArticleService {
     public Article getArticleById(long id) {
         return articleRepository.getArticleById(id);
     }
+
+    public List<Article> search(String kwType, String kw) {
+        return articleRepository.search(kwType, kw);
+    }
 }
