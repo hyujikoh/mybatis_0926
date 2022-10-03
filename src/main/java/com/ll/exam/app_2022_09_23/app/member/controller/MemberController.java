@@ -1,5 +1,6 @@
 package com.ll.exam.app_2022_09_23.app.member.controller;
 
+import com.ll.exam.app_2022_09_23.app.base.rq.Rq;
 import com.ll.exam.app_2022_09_23.app.member.dto.Member;
 import com.ll.exam.app_2022_09_23.app.member.service.MemberService;
 import com.ll.exam.app_2022_09_23.util.Util;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
-
+    private final Rq rq;
     @GetMapping("/member/login")
     public String showLogin() {
         return "member/login";
@@ -32,7 +33,7 @@ public class MemberController {
         if (member.matchPassword(password) == false) {
             return "redirect:/?msg=" + Util.url.encode("패스워드가 일치하지 않습니다.");
         }
-
+        rq.setName(member.getName());
         session.setAttribute("loginedMemberId", member.getId());
 
         return "redirect:/?msg=" + Util.url.encode("로그인 성공");
