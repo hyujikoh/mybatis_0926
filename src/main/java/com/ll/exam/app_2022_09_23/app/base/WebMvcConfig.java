@@ -17,10 +17,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
         InterceptorRegistration ir;
 
         ir = registry.addInterceptor(beforeActionInterceptor);// 해당 요청에 대한 명부 같은것
-        //ir.addPathPatterns("/**");
+        ir.addPathPatterns("/**");
         ir.excludePathPatterns("/favicon.ico");
-        //.excludePathPatterns("/resource/**");
+        ir.excludePathPatterns("/resource/**");
         ir.excludePathPatterns("/gen/**");
         ir.excludePathPatterns("/error");
+
+        /**
+         * 1. 만일 두개의 인터셉터가 작동을 한다고 하면 어떻게 될까까
+        * */
     }
 }
