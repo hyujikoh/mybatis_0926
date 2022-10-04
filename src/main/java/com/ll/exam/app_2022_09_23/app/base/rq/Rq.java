@@ -66,22 +66,29 @@ public class Rq {
         return (String) session.getAttribute("loginedMemberEmail");
     }
 
+    private String getLoginedMemberRoles() {
+        return (String) session.getAttribute("loginedMemberRoles");
+    }
+
+
     public Member getLoginedMember() {
         long id = getLoginedMemberId();
         String username = getLoginedMemberUsername();
         String name = getLoginedMemberName();
         String email = getLoginedMemberEmail();
-
+        String roles = getLoginedMemberRoles();
         return Member
                 .builder()
                 .id(id)
                 .username(username)
                 .name(name)
                 .email(email)
+                .roles(roles)
                 .build();
     }
 
     public void setLoginDone(Member member) {
+        session.setAttribute("loginedMemberRoles", member.getRoles());
         session.setAttribute("loginedMemberId", member.getId());
         session.setAttribute("loginedMemberUsername", member.getUsername());
         session.setAttribute("loginedMemberName", member.getName());
@@ -89,6 +96,7 @@ public class Rq {
     }
 
     public void setLogoutDone() {
+        session.removeAttribute("loginedMemberRoles");
         session.removeAttribute("loginedMemberId");
         session.removeAttribute("loginedMemberUsername");
         session.removeAttribute("loginedMemberName");
@@ -99,5 +107,11 @@ public class Rq {
         alertMsg = msg;
 
         return "common/js";
+    }
+
+    public boolean isAdmin() {
+        if (isLogout()) return false;
+
+        return getLoginedMember().hasRole("ADMIN");
     }
 }

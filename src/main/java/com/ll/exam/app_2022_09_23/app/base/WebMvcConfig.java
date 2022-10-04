@@ -1,6 +1,7 @@
 package com.ll.exam.app_2022_09_23.app.base;
 
 import com.ll.exam.app_2022_09_23.app.interceptor.BeforeActionInterceptor;
+import com.ll.exam.app_2022_09_23.app.interceptor.NeedToAdminInterceptor;
 import com.ll.exam.app_2022_09_23.app.interceptor.NeedToLoginInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
     private final BeforeActionInterceptor beforeActionInterceptor;
     private final NeedToLoginInterceptor needToLoginInterceptor;
+    private final NeedToAdminInterceptor needToAdminInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration ir;
@@ -31,5 +33,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
         ir = registry.addInterceptor(needToLoginInterceptor);
         ir.addPathPatterns("/article/write");
         ir.addPathPatterns("/member/me");
+
+
+
+        ir = registry.addInterceptor(needToAdminInterceptor);
+        ir.addPathPatterns("/adm/**");
     }
 }
