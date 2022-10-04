@@ -17,16 +17,7 @@ public class NeedToLoginInterceptor implements HandlerInterceptor {
     private final Rq rq;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.debug("NeedToLoginInterceptor::preHandle 실행됨");
-        rq.increaseCount();
-        log.debug("rq : " + rq + ", rq.count : " + rq.getCount());// rq 객체를 싱글톤으로 사용해서 만듬
-        HttpSession session = request.getSession();
-
-        Long loginedMemberId = (Long) session.getAttribute("loginedMemberId");
-
-        boolean isLogined = loginedMemberId != null; // 임시
-
-        if (isLogined == false) {
+        if (rq.isLogout()) {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("text/html; charset=UTF-8");
             response.getWriter().append("로그인 후 이용바랍니다.");
