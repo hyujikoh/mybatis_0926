@@ -24,6 +24,9 @@ public class Rq {
     private final HttpServletResponse resp;
     private final HttpSession session;
 
+    @Getter
+    private String alertMsg;
+
     public String getCurrentUrl() {
         String url = req.getRequestURL().toString();
         String queryString = req.getQueryString();
@@ -90,5 +93,11 @@ public class Rq {
         session.removeAttribute("loginedMemberUsername");
         session.removeAttribute("loginedMemberName");
         session.removeAttribute("loginedMemberEmail");
+    }
+
+    public String historyBackTemplate(String msg) {
+        alertMsg = msg;
+
+        return "common/js";
     }
 }

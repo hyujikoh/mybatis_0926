@@ -28,11 +28,11 @@ public class MemberController {
         Member member = memberService.getMemberByUsername(username);
 
         if (member == null) {
-            return "redirect:/?msg=" + Util.url.encode("존재하지 않는 회원입니다.");
+            return rq.historyBackTemplate("일치하는 회원이 없습니다.");
         }
 
         if (member.matchPassword(password) == false) {
-            return "redirect:/?msg=" + Util.url.encode("패스워드가 일치하지 않습니다.");
+            return rq.historyBackTemplate("비밀번호가 일치하지 않습니다.");
         }
         rq.setLoginDone(member);
 

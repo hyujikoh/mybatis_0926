@@ -1,0 +1,9 @@
+<script th:inline="javascript">
+    const alertMsg = /*[[${@rq.alertMsg}]]*/ null;
+
+    if (alertMsg) {
+        alert(alertMsg);
+    }
+
+    history.back();
+</script>
