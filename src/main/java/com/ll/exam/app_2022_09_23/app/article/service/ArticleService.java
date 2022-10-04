@@ -29,4 +29,8 @@ public class ArticleService {
     public List<Article> search(String kwType, String kw) {
         return articleRepository.search(kwType, kw);
     }
+
+    public List<Article> getForPrintArticles() {
+        return articleRepository.getForPrintArticles();
+    }
 }

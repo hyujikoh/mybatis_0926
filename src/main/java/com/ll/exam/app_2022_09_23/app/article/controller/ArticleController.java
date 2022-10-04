@@ -21,8 +21,7 @@ public class ArticleController {
 
     @GetMapping("/list")
     public String showList(Model model) {
-        List<Article> articles = articleService.getArticles();
-
+        List<Article> articles = articleService.getForPrintArticles();
         log.debug("articles : " + articles);
 
         model.addAttribute("articles", articles);

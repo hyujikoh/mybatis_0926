@@ -56,4 +56,17 @@ public interface ArticleRepository {
 			</script>
 			""")
     List<Article> search(String kwType, String kw);
+
+
+    @Select("""
+            <script>
+            SELECT A.*,
+            M.username AS extra_member_username,
+            M.name AS extra_member_name
+            FROM article AS A
+            LEFT JOIN member AS M
+            ON A.memberId = M.id
+            </script>
+            """)
+    List<Article> getForPrintArticles();
 }
