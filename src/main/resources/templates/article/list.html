@@ -2,11 +2,21 @@
 <html layout:decorate="~{/layout/layout}">
 
 <head>
-    <title>게시물 상세페이지</title>
+    <title>게시물 리스트</title>
 </head>
 
 <main layout:fragment="main">
-    <h1>게시물 상세페이지</h1>
+    <h1>게시물 리스트</h1>
+
+    <ul>
+        <li th:each="article : ${articles}">
+            <a th:href="@{|/article/${article.id}|}" th:text="${article.id}"></a>
+
+            <a th:href="@{|/article/${article.id}|}" th:text="${article.subject}"></a>
+
+            <a th:href="@{|/article/${article.id}|}" th:text="${article.member_id}"></a>
+        </li>
+    </ul>
 </main>
 
 </html>
